@@ -25,7 +25,11 @@ describe("isIdentity", function() {
       "L U L' U' L U L' U' L U L' U' L U L' U' L U L' U' L U L' U'",
       "F U F' U' F U F' U' F U F' U' F U F' U' F U F' U' F U F' U'",
       "B U B' U' B U B' U' B U B' U' B U B' U' B U B' U' B U B' U'",
-      "B D B' D' B D B' D' B D B' D' B D B' D' B D B' D' B D B' D'"
+      "B D B' D' B D B' D' B D B' D' B D B' D' B D B' D' B D B' D'",
+      "x x x x",
+      "x2 x x",
+      "R y F' y'",
+      "D x F' x'"
     ];
     cases.forEach(function(c) {
       assert.equal(cubid.isIdentity(c), true);
@@ -37,7 +41,8 @@ describe("isIdentity", function() {
       "R",
       "U",
       "R U R'",
-      "R U2 R'"
+      "R U2 R'",
+      "x"
     ];
     cases.forEach(function(c) {
       assert.equal(cubid.isIdentity(c), false);

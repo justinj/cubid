@@ -2,28 +2,6 @@ var movesInAlg = function(alg) {
   return alg.match(/[UDRLFBudlrfbxyz]w?[2']?/g)
 };
 
-var parseMove = function(move) {
-  var suffix;
-  var len;
-  if (move.match(/'$/)) {
-    suffix = "'";
-    len = 3;
-    move = move.replace(/'$/, "");
-  } else if (move.match(/2$/)) {
-    suffix = "2";
-    len = 2;
-    move = move.replace(/2$/, "");
-  } else {
-    suffix = "";
-    len = 1;
-  }
-  return {
-    move: move,
-    suffix: suffix,
-    len: len
-  };
-};
-
 var invertSingle = function(move) {
   if (move.match(/'$/)) {
     return move.replace(/'$/, "");
@@ -89,6 +67,9 @@ var moveEffects = {
                48, 49, 50,
                11, 10,  9],
 
+  "U2": "U U",
+  "U'": "U U U",
+
   "D": [        0,  1,  2,
                 3,  4,  5,
                 6,  7,  8,
@@ -101,6 +82,9 @@ var moveEffects = {
                35, 34, 33,
                48, 49, 50,
                51, 52, 53],
+
+  "D2": "D D",
+  "D'": "D D D",
 
   "R": [        0,  1, 14,
                 3,  4, 23,
@@ -115,6 +99,9 @@ var moveEffects = {
                48, 49,  5,
                51, 52,  8],
 
+  "R2": "R R",
+  "R'": "R R R",
+
   "L": [       45,  1,  2,
                48,  4,  5,
                51,  7,  8,
@@ -127,6 +114,9 @@ var moveEffects = {
                36, 46, 47,
                39, 49, 50,
                42, 52, 53],
+
+  "L2": "L L",
+  "L'": "L L L",
 
   "F": [        0,  1,  2,
                 3,  4,  5,
@@ -141,6 +131,9 @@ var moveEffects = {
                48, 49, 50,
                51, 52, 53],
 
+  "F2": "F F",
+  "F'": "F F F",
+
   "B": [       27, 18,  9,
                 3,  4,  5,
                 6,  7,  8,
@@ -152,7 +145,58 @@ var moveEffects = {
                35, 26, 17,
                51, 48, 45,
                52, 49, 46,
-               53, 50, 47]
+               53, 50, 47],
+
+  "B2": "B B",
+  "B'": "B B B",
+
+  "x": [       12, 13, 14,
+               21, 22, 23,
+               30, 31, 32,
+   11, 20, 29, 36, 37, 38, 33, 24, 15,
+   10, 19, 28, 39, 40, 41, 34, 25, 16,
+    9, 18, 27, 42, 43, 44, 35, 26, 17,
+               45, 46, 47,
+               48, 49, 50,
+               51, 52, 53,
+                0,  1,  2,
+                3,  4,  5,
+                6,  7,  8],
+
+  "x2": "x x",
+  "x'": "x x x",
+
+  "y": [        6,  3,  0,
+                7,  4,  1,
+                8,  5,  2,
+   12, 13, 14, 15, 16, 17, 53, 52, 51,
+   21, 22, 23, 24, 25, 26, 50, 49, 48,
+   30, 31, 32, 33, 34, 35, 47, 46, 45,
+               38, 41, 44,
+               37, 40, 43,
+               36, 39, 42,
+               29, 28, 27,
+               20, 19, 18, 
+               11, 10,  9],
+
+  "y2": "y y",
+  "y'": "y y y",
+
+  "z": "x y x'",
+  "z2": "z z",
+  "z'": "z z z",
+
+  "M": "L' R x'",
+  "M2": "M M",
+  "M'": "M M M",
+
+  "E": "z M z'",
+  "E2": "E E",
+  "E'": "E E E",
+
+  "S": "y M y'",
+  "S2": "S S",
+  "S'": "S S S",
 };
 
 var cubesEqual = function(cube1, cube2) {
@@ -163,15 +207,17 @@ var cubesEqual = function(cube1, cube2) {
 }
 
 var applyMove = function(cube, move) {
-  for (var i = 0; i < move.len; i++) {
-    cube = moveEffects[move.move].map(function(i) { return cube[i] });
+  var effect = moveEffects[move];
+  if (typeof effect === "string") {
+    return movesInAlg(effect).reduce(applyMove, cube);
+  } else {
+    return effect.map(function(i) { return cube[i] });
   }
-  return cube;
 };
 
 var isIdentity = function(alg) {
   var c = solved();
-  var moves = movesInAlg(alg).map(parseMove);
+  var moves = movesInAlg(alg);
   c = moves.reduce(applyMove, c);
   return cubesEqual(c, solved());
 };
