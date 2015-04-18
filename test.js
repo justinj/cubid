@@ -48,4 +48,7 @@ describe("isIdentity", function() {
       assert.equal(cubid.isIdentity(c), false);
     });
   });
+  it.skip("doesn't mind rotations", function() {
+    assert.equal(cubing.isIdentity("x"), true);
+  });
 });
