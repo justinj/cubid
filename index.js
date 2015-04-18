@@ -1,22 +1,4 @@
-var movesInAlg = function(alg) {
-  return alg.match(/[UDRLFBudlrfbxyz]w?[2']?/g)
-};
-
-var invertSingle = function(move) {
-  if (move.match(/'$/)) {
-    return move.replace(/'$/, "");
-  } else if (move.match(/2$/)) {
-    return move;
-  } else {
-    return move + "'";
-  }
-};
-
-var invert = function(alg) {
-  return movesInAlg(alg).map(invertSingle).reverse().join(" ");
-};
-
-// Just pretend this part magically works and we'll both be a lot happier.
+// Just pretend this magically works and we'll both be a lot happier.
 
 //          ┌──┬──┬──┐
 //          │ 0│ 1│ 2│
@@ -43,6 +25,10 @@ var invert = function(alg) {
 //          ├──┼──┼──┤
 //          │51│52│53│
 //          └──┴──┴──┘
+
+var movesInAlg = function(alg) {
+  return alg.match(/[UDRLFBudlrfbxyz]w?[2']?/g)
+};
 
 var stickerCount = 54;
 var solved = function() {
@@ -215,14 +201,27 @@ var applyMove = function(cube, move) {
   }
 };
 
-var isIdentity = function(alg) {
-  var c = solved();
+var Cubid = function() {
+  var init;
+  var alg = arguments[0];
+  if (arguments.length === 1) {
+    init = solved();
+  } else if (arguments.length === 2) {
+    init = arguments[1];
+  } else {
+    throw "new Cubid(...) takes 1 or 2 arguments.";
+  }
+
   var moves = movesInAlg(alg);
-  c = moves.reduce(applyMove, c);
-  return cubesEqual(c, solved());
+  this.contents = moves.reduce(applyMove, init);
 };
 
-module.exports = {
-  invert: invert,
-  isIdentity: isIdentity
+Cubid.prototype.isSolved = function() {
+  return cubesEqual(this.contents, solved());
 };
+
+Cubid.prototype.apply = function(alg) {
+  return new Cubid(alg, this.contents);
+};
+
+module.exports = Cubid;

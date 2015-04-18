@@ -1,22 +1,7 @@
 var assert = require("assert");
-var cubid = require("./index.js");
+var Cubid = require("./index.js");
 
-describe("invert", function() {
-  it("inverts the given move", function() {
-    var cases = [
-      ["R2", "R2"],
-      ["R", "R'"],
-      ["R'", "R"],
-      ["R U", "U' R'"],
-      ["R U2 R'", "R U2 R'"],
-    ];
-    cases.forEach(function(c) {
-      assert.equal(cubid.invert(c[0]), c[1]);
-    });
-  });
-});
-
-describe("isIdentity", function() {
+describe("isSolved", function() {
   it("is true if a sequence of moves solves the cube", function() {
     var cases = [
       "R R R R",
@@ -32,7 +17,8 @@ describe("isIdentity", function() {
       "D x F' x'"
     ];
     cases.forEach(function(c) {
-      assert.equal(cubid.isIdentity(c), true);
+      var cube = new Cubid(c);
+      assert(cube.isSolved());
     });
   });
 
@@ -45,10 +31,21 @@ describe("isIdentity", function() {
       "x"
     ];
     cases.forEach(function(c) {
-      assert.equal(cubid.isIdentity(c), false);
+      var cube = new Cubid(c);
+      assert(!cube.isSolved());
     });
   });
   it.skip("doesn't mind rotations", function() {
-    assert.equal(cubing.isIdentity("x"), true);
+    assert.equal(cubing.isSolved("x"), true);
+  });
+});
+
+describe("apply", function() {
+  it("returns a new cube", function() {
+    var cube = new Cubid("R");
+    assert(!cube.isSolved());
+    var cube2 = cube.apply("R'");
+    assert(cube2.isSolved());
+    assert(!cube.isSolved());
   });
 });
