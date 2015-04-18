@@ -27,16 +27,15 @@ describe("isSolved", function() {
       "R",
       "U",
       "R U R'",
-      "R U2 R'",
-      "x"
+      "R U2 R'"
     ];
     cases.forEach(function(c) {
       var cube = new Cubid(c);
       assert(!cube.isSolved());
     });
   });
-  it.skip("doesn't mind rotations", function() {
-    assert.equal(cubing.isSolved("x"), true);
+  it("doesn't mind rotations", function() {
+    assert(new Cubid("x").isSolved())
   });
 });
 

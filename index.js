@@ -216,8 +216,32 @@ var Cubid = function() {
   this.contents = moves.reduce(applyMove, init);
 };
 
+var sides = [
+  [ 0,  1,  2,  3,  4,  5,  6,  7,  8],
+  [ 9, 10, 11, 18, 19, 20, 27, 28, 29],
+  [12, 13, 14, 21, 22, 23, 30, 31, 32],
+  [15, 16, 17, 24, 25, 26, 33, 34, 35],
+  [36, 37, 38, 39, 40, 41, 42, 43, 44],
+  [45, 46, 47, 48, 49, 50, 51, 52, 53]
+];
+
+var colours = {};
+sides.forEach(function(side, i) {
+  side.forEach(function(sticker) {
+    colours[sticker] = i;
+  });
+});
+
 Cubid.prototype.isSolved = function() {
-  return cubesEqual(this.contents, solved());
+  for (var i = 0; i < sides.length; i++) {
+    var col = colours[this.contents[sides[i][0]]];
+    for (var j = 1; j < sides[i].length; j++) {
+      if (col !== colours[this.contents[sides[i][j]]]) {
+        return false;
+      }
+    }
+  };
+  return true;
 };
 
 Cubid.prototype.apply = function(alg) {
