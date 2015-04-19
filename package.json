@@ -1,6 +1,6 @@
 {
   "name": "cubid",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Cubing alg stuff.",
   "main": "index.js",
   "dependencies": {},
@@ -14,5 +14,5 @@
     "rubik"
   ],
   "author": "Justin Jaffray",
-  "license": "NYSL"
+  "license": "MIT"
 }
