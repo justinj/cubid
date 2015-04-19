@@ -14,7 +14,9 @@ describe("isSolved", function() {
       "x x x x",
       "x2 x x",
       "R y F' y'",
-      "D x F' x'"
+      "D x F' x'",
+      "Rw L'",
+      "Lw' R",
     ];
     cases.forEach(function(c) {
       var cube = new Cubid(c);
