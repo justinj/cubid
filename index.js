@@ -99,13 +99,6 @@ var moveDefs = [
   ["b" , "Bw"]
 ];
 
-var cubesEqual = function(cube1, cube2) {
-  for (var i = 0; i < stickerCount; i++) {
-    if (cube1[i] !== cube2[i]) return false;
-  }
-  return true;
-}
-
 var applyMove = function(cube, move) {
   if (!moveEffects.hasOwnProperty(move)) {
     throw new Error("Unknown move '" + move + "'");
