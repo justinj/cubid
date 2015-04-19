@@ -1,7 +1,7 @@
 {
   "name": "cubid",
   "version": "0.0.1",
-  "description": "Cubing alg stuff.",
+  "description": "Cube representation that sucks.",
   "main": "index.js",
   "dependencies": {
     "alg": "^0.1.4"
