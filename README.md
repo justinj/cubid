@@ -25,4 +25,4 @@ Returns the result of applying `<alg>` to `cube`.
 
 #### Algorithm format
 
-Anything supported by [https://github.com/cubing/alg.js](alg.js).
+Anything supported by [alg.js](https://github.com/cubing/alg.js).
