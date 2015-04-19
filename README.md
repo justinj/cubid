@@ -22,3 +22,7 @@ Any rotation of the solved cube is also considered to be solved, so `new Cubid("
 #### `cube.apply(<alg>)`
 
 Returns the result of applying `<alg>` to `cube`.
+
+#### Algorithm format
+
+Anything supported by [https://github.com/cubing/alg.js](alg.js).

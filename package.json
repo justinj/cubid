@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "Cubing alg stuff.",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "alg": "^0.1.4"
+  },
   "devDependencies": {
     "mocha": "^2.2.4"
   },

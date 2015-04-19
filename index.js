@@ -1,3 +1,5 @@
+var alg = require("alg");
+
 //          ┌──┬──┬──┐
 //          │ 0│ 1│ 2│
 //          ├──┼──┼──┤
@@ -24,8 +26,8 @@
 //          │51│52│53│
 //          └──┴──┴──┘
 
-var movesInAlg = function(alg) {
-  return alg.match(/[UDRLFBudlrfbxyzMES]w?[2']?/g)
+var movesInAlg = function(sequence) {
+  return alg.cube.expand(sequence).match(/[UDRLFBudlrfbxyzMES]w?[2']?/g)
 };
 
 var stickerCount = 54;
@@ -101,31 +103,30 @@ var applyMove = function(cube, move) {
   if (!moveEffects.hasOwnProperty(move)) {
     throw new Error("Unknown move '" + move + "'");
   }
-  var effect = moveEffects[move];
-  if (typeof effect === "string") {
-    return movesInAlg(effect).reduce(applyMove, cube);
-  } else {
-    return effect.map(function(i) { return cube[i] });
-  }
+  return moveEffects[move].map(function(i) { return cube[i] });
 };
 
 var moveEffects = {};
 
 moveDefs.forEach(function(def) {
-  var k = def[0];
-  var v = def[1];
-  if (typeof v === "object") {
-    moveEffects[k] = v;
+  var move = def[0];
+  var definition = def[1];
+  // Moves are defined either as a permutation (undesirable but necessary)
+  // or as another algorithm (preferred).
+  if (typeof definition === "object") {
+    moveEffects[move] = definition;
   } else {
-    var moves = movesInAlg(v);
-    moveEffects[k] = moves.reduce(applyMove, solved());
+    var moves = movesInAlg(definition);
+    moveEffects[move] = moves.reduce(applyMove, solved());
   }
-  var result = applyMove(solved(), k);
-  moveEffects[k] = result;
-  result = applyMove(result, k);
-  moveEffects[k + "2"] = result;
-  result = applyMove(result, k);
-  moveEffects[k + "'"] = result;
+  var cube = applyMove(solved(), move);
+  moveEffects[move] = cube;
+
+  cube = applyMove(cube, move);
+  moveEffects[move + "2"] = cube;
+
+  cube = applyMove(cube, move);
+  moveEffects[move + "'"] = cube;
 });
 
 var Cubid = function() {
