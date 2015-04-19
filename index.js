@@ -1,5 +1,3 @@
-// Just pretend this magically works and we'll both be a lot happier.
-
 //          ┌──┬──┬──┐
 //          │ 0│ 1│ 2│
 //          ├──┼──┼──┤
