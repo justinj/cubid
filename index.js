@@ -27,7 +27,7 @@
 //          └──┴──┴──┘
 
 var movesInAlg = function(alg) {
-  return alg.match(/[UDRLFBudlrfbxyz]w?[2']?/g)
+  return alg.match(/[UDRLFBudlrfbxyzMES]w?[2']?/g)
 };
 
 var stickerCount = 54;
@@ -126,6 +126,12 @@ var applyMove = function(cube, move) {
     return effect.map(function(i) { return cube[i] });
   }
 };
+
+// This is an optimization.
+Object.keys(moveEffects).forEach(function(k) {
+  var result = applyMove(solved(), k);
+  moveEffects[k] = result;
+});
 
 var Cubid = function() {
   var init;
