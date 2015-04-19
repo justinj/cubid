@@ -7,12 +7,19 @@
   "devDependencies": {
     "mocha": "^2.2.4"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/justinj/cubid"
+  },
+  "bugs": {
+    "url": "https://github.com/justinj/cubid/issues"
+  },
   "scripts": {
     "test": "mocha"
   },
   "keywords": [
     "rubik"
   ],
-  "author": "Justin Jaffray",
+  "author": "Justin Jaffray <justin.jaffray@gmail.com>",
   "license": "MIT"
 }
