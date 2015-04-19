@@ -1,6 +1,6 @@
 {
   "name": "cubid",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Cube representation that sucks.",
   "main": "index.js",
   "dependencies": {
