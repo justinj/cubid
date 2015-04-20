@@ -26,3 +26,21 @@ Returns the result of applying `<alg>` to `cube`.
 #### Algorithm format
 
 Anything supported by [alg.js](https://github.com/cubing/alg.js).
+
+## Philosophy
+
+Writing cube representations sucks.  I don't know why, but it is just not a fun
+problem to solve, especially if you're doing nxnxn cubes.  To that end, I *have
+not* done nxnxn cubes with Cubid. All it supports is 3x3.
+
+Cubid is a cube representation supporting the bare minimum set of features -
+you can create cubes, apply moves to them, and check if they're solved.  That's
+it.  Extremely useful for a limited set of use cases, downright pointless for
+pretty much everything else.
+
+If this doesn't do what you want, it's succeeded.
+
+If you make a general nxnxn cube reprentation with a friendly interface for
+querying various properties of a scramble (stickers, orientation, permutation,
+solvedness, current stage), hit me up, I'd love to see it.  Until then, we have
+Cubid.
