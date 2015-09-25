@@ -27,7 +27,7 @@ var alg = require("alg");
 //          └──┴──┴──┘
 
 var movesInAlg = function(sequence) {
-  return alg.cube.expand(sequence).match(/[UDRLFBudlrfbxyzMES]w?[2']?/g)
+  return alg.cube.expand(sequence).match(/[UDRLFBudlrfbxyzMES]w?[2']?/g) || [];
 };
 
 var stickerCount = 54;

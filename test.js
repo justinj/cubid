@@ -19,7 +19,8 @@ describe("isSolved", function() {
       "Lw' R",
       "l' R",
       "[L, R]",
-      "(L R (L' (R')))"
+      "(L R (L' (R')))",
+      ""
     ];
     cases.forEach(function(c) {
       var cube = new Cubid(c);
