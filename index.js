@@ -87,7 +87,7 @@ var moveDefs = [
   ["S" , "y M y'"],
   ["Rw", "M' R"],
   ["Lw", "M L"],
-  ["Uw", "M' R"],
+  ["Uw", "D y"],
   ["Dw", "y' U"],
   ["Fw", "z B'"],
   ["Bw", "z' F"],
