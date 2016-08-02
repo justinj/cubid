@@ -42,8 +42,17 @@ describe("isSolved", function() {
       assert(!cube.isSolved());
     });
   });
+
   it("doesn't mind rotations", function() {
     assert(new Cubid("x").isSolved())
+  });
+
+  it("lets you specify a stage", function() {
+    assert(!(new Cubid("R U R' U R U2 R'").isSolved()));
+    assert(new Cubid("R U R' U R U2 R'").isSolved('f2l'));
+    assert(new Cubid("R U R' U R U2 R' x").isSolved('f2l'));
+    assert(!(new Cubid("x R U R' U R U2 R'").isSolved('f2l')));
+    assert(new Cubid("R U' R U R U R U' R' U' R2").isSolved('f2l'));
   });
 });
 

@@ -160,11 +160,25 @@ sides.forEach(function(side, i) {
   });
 });
 
-Cubid.prototype.isSolved = function() {
+var ignoredStickersForStage = {
+  'all': [],
+  'f2l': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 51, 52, 53]
+};
+
+var CENTER_STICKER = 4;
+
+Cubid.prototype.isSolved = function(stage) {
+  if (stage === undefined) {
+    stage = 'all';
+  } else {
+    stage = stage.toLowerCase();
+  }
+
+  var ignoredStickers = ignoredStickersForStage[stage];
   for (var i = 0; i < sides.length; i++) {
-    var col = colours[this.contents[sides[i][0]]];
-    for (var j = 1; j < sides[i].length; j++) {
-      if (col !== colours[this.contents[sides[i][j]]]) {
+    var col = colours[this.contents[sides[i][CENTER_STICKER]]];
+    for (var j = 0; j < sides[i].length; j++) {
+      if (col !== colours[this.contents[sides[i][j]]] && ignoredStickers.indexOf(this.contents[sides[i][j]]) === -1) {
         return false;
       }
     }

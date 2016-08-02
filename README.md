@@ -16,10 +16,15 @@ Let's go home.
 
 All cubes are immutable.
 
-#### `cube.isSolved()`
+#### `cube.isSolved(<stage="all">)`
 
 Returns true if `cube` is solved.
 Any rotation of the solved cube is also considered to be solved, so `new Cubid("x").isSolved() === true`.
+
+If a `stage` is specified (only `"all"` and `"f2l"` are currently supported)
+then that is the stage that must be solved to return true.
+That is, if an algorithm is performed that only affects the last layer, and
+`"f2l"` is specified, then the cube is considered solved.
 
 #### `cube.apply(<alg>)`
 
